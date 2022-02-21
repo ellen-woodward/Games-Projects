@@ -18,10 +18,12 @@ namespace TicTacToe
             {
                 int result = 0;
                 char winner = 'x';
+                int numberPlays = 0;
 
                 while (result == 0)
                 {
                     PlayGame('x');
+                    numberPlays++;
                     result = CheckResult();
 
                     if (result == 1)
@@ -31,7 +33,14 @@ namespace TicTacToe
                         break;
                     }
 
+                    if (numberPlays == 9)
+                    {
+                        Console.WriteLine("\nStalemate");
+                        break;
+                    }
+
                     PlayGame('o');
+                    numberPlays++;
                     result = CheckResult();
 
                     if (result == 1)
@@ -42,7 +51,8 @@ namespace TicTacToe
                     }
                 }
 
-                Console.WriteLine($"\nCongratulations, Player {winner} won this match");
+                if (result == 1)
+                    Console.WriteLine($"\nCongratulations, Player {winner} won this match");
 
                 Console.Write("\nWould you like to play again? (y/n) : ");
                 continuePlaying = Console.ReadLine().ToLower();
@@ -134,7 +144,7 @@ namespace TicTacToe
             else if (board[0, 0] == 'x' && board[1, 0] == 'x' && board[2, 0] == 'x')
                 result = 1;
             else if (board[0, 0] == 'o' && board[1, 0] == 'o' && board[2, 0] == 'o')
-                result = 1;
+                result = 1; 
             else if (board[0, 1] == 'x' && board[1, 1] == 'x' && board[2, 1] == 'x')
                 result = 1;
             else if (board[0, 1] == 'o' && board[1, 1] == 'o' && board[2, 1] == 'o')
@@ -158,3 +168,4 @@ namespace TicTacToe
         }
     }
 }
+
